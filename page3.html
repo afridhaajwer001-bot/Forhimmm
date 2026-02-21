@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love Letter 💌</title>
+<style>
+body {margin:0; background:#f8c8dc; display:flex; justify-content:center; align-items:center; height:100vh; font-family:Georgia, serif; overflow:hidden;}
+.letter-box {
+  background: linear-gradient(#fffdfa,#fffdfa),
+  repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 4px);
+  padding:40px; border-radius:16px; box-shadow:0 25px 60px rgba(0,0,0,0.12);
+  min-height:240px; text-align:left; line-height:1.8; font-size:16px; letter-spacing:0.3px;
+}
+.heart {position:fixed; top:-20px; color:rgba(255,105,180,0.5); animation:fall linear forwards; font-size:18px;}
+@keyframes fall { to { transform: translateY(110vh); } }
+</style>
+</head>
+<body>
+
+<div class="letter-box">
+  <p id="typedText"></p>
+</div>
+
+<audio id="bgMusic" src="until-i-found-you.mp3"></audio>
+
+<script>
+const message = `My love,
+
+From the moment you entered my life,
+something changed in the most beautiful way.
+
+You brought calm to my storms,
+warmth to my cold days,
+and light into spaces I didn’t even know were dark.
+
+Every word in this letter carries a piece of my heart.
+
+Thank you for being my comfort,
+my happiness,
+and my home.
+
+Always yours.`;
+
+let i = 0;
+const textEl = document.getElementById("typedText");
+const music = document.getElementById("bgMusic");
+
+function typeWriter() {
+  if(i<message.length){
+    textEl.innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  } else { music.pause(); }
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.animationDuration = (5+Math.random()*3)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>{ heart.remove(); },8000);
+}
+
+function startHearts(){ setInterval(createHeart,900); }
+
+window.onload = function(){
+  music.play();
+  typeWriter();
+  startHearts();
+}
+</script>
+
+</body>
+</html>
